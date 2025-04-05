@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/addRoutineFragment"
+        android:name="com.dilarasagirli.routineapp.view.AddRoutineFragment"
+        android:label="fragment_add_routine"
+        tools:layout="@layout/fragment_add_routine" >
+        <action
+            android:id="@+id/action_addRoutineFragment_to_editRoutine"
+            app:destination="@id/editRoutine"
+            app:popUpTo="@id/addRoutineFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.dilarasagirli.routineapp.view.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_routineScreenF"
+            app:destination="@id/routineScreenF" />
+        <action
+            android:id="@+id/action_mainFragment_to_addRoutineFragment"
+            app:destination="@id/addRoutineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/routineScreenF"
+        android:name="com.dilarasagirli.routineapp.view.RoutineScreenF"
+        android:label="fragment_routine_screen"
+        tools:layout="@layout/fragment_routine_screen" >
+        <argument
+            android:name="routineId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_routineScreenF_to_addTask"
+            app:destination="@id/addTask" />
+        <action
+            android:id="@+id/action_routineScreenF_to_editRoutine"
+            app:destination="@id/editRoutine" />
+    </fragment>
+    <fragment
+        android:id="@+id/editRoutine"
+        android:name="com.dilarasagirli.routineapp.view.EditRoutine"
+        android:label="fragment_edit_routine"
+        tools:layout="@layout/fragment_edit_routine" >
+        <action
+            android:id="@+id/action_editRoutine_to_addTask"
+            app:destination="@id/addTask" />
+        <action
+            android:id="@+id/action_editRoutine_to_routineScreenF"
+            app:destination="@id/routineScreenF"
+            app:popUpTo="@id/editRoutine"
+            app:popUpToInclusive="true"/>
+        <argument
+            android:name="routineId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTask"
+        android:name="com.dilarasagirli.routineapp.view.AddTask"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" >
+        <argument
+            android:name="routineId"
+            app:argType="integer" />
+    </fragment>
+</navigation>
