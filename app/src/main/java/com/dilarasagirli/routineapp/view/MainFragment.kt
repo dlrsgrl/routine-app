@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import com.dilarasagirli.routineapp.R
-import com.dilarasagirli.routineapp.classes.Routine
 import com.dilarasagirli.routineapp.adapter.Routineadapter
-import com.dilarasagirli.routineapp.classes.Tasks
 import com.dilarasagirli.routineapp.databinding.FragmentMainBinding
 import com.dilarasagirli.routineapp.roomdb.RoutineDAO
 import com.dilarasagirli.routineapp.roomdb.Routinedb
@@ -24,7 +21,6 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var routinesList : ArrayList<Routine>
     private lateinit var routineDAO: RoutineDAO
     private val mDisposable=CompositeDisposable()
 
@@ -41,18 +37,17 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        binding.routinrv.layoutManager = LinearLayoutManager(this.context)
-
-        binding.addbtn2.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_addRoutineFragment)
-        }
-        
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getAll()
+        binding.routinrv.layoutManager = LinearLayoutManager(this.context)
+
+        binding.addbtn2.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_addRoutineFragment)
+        }
 
     }
 

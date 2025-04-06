@@ -1,23 +1,16 @@
 package com.dilarasagirli.routineapp.view
 
-import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
-import androidx.room.Room
-import com.dilarasagirli.routineapp.R
 import com.dilarasagirli.routineapp.databinding.FragmentAddTaskBinding
-import com.dilarasagirli.routineapp.databinding.FragmentEditRoutineBinding
 import com.dilarasagirli.routineapp.model.Tasks
 import com.dilarasagirli.routineapp.roomdb.RoutineDAO
 import com.dilarasagirli.routineapp.roomdb.Routinedb
-import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -45,6 +38,11 @@ class AddTask : Fragment() {
     ): View? {
         _binding = FragmentAddTaskBinding.inflate(inflater, container, false)
         val view = binding.root
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         var isEmpty = false
         var isTaskEmpty = false
         binding.editTextText.addTextChangedListener {
@@ -84,9 +82,7 @@ class AddTask : Fragment() {
                 )
             }
         }
-        return view
     }
-
     private fun handleResponse(taskOrder:Long){
         val task_order=if (taskOrder.toInt() == -1) 0 else taskOrder.toInt() + 1
         val taskTime = binding.taskTime.text.toString().split(":")

@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import com.dilarasagirli.routineapp.adapter.RoutineScreenAdapter
-import com.dilarasagirli.routineapp.classes.Tasks
 import com.dilarasagirli.routineapp.databinding.FragmentRoutineScreenBinding
 import com.dilarasagirli.routineapp.roomdb.RoutineDAO
 import com.dilarasagirli.routineapp.roomdb.Routinedb
@@ -20,7 +18,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class RoutineScreenF : Fragment() {
     private var _binding: FragmentRoutineScreenBinding? = null
     private val binding get() = _binding!!
-    private lateinit var tasklist : ArrayList<Tasks>
 
     private lateinit var routineDAO: RoutineDAO
     private val mDisposable= CompositeDisposable()
@@ -60,7 +57,6 @@ class RoutineScreenF : Fragment() {
                 val action = RoutineScreenFDirections.actionRoutineScreenFToEditRoutine(routineId = id)
                 findNavController().navigate(action)
             }
-
         }
     }
 

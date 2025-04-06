@@ -1,7 +1,6 @@
 package com.dilarasagirli.routineapp.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +10,9 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.dilarasagirli.routineapp.R
 import com.dilarasagirli.routineapp.adapter.EditRoutineAdapter
-import com.dilarasagirli.routineapp.classes.Routine
 import com.dilarasagirli.routineapp.databinding.FragmentEditRoutineBinding
-import com.dilarasagirli.routineapp.databinding.FragmentMainBinding
 import com.dilarasagirli.routineapp.model.Tasks
 import com.dilarasagirli.routineapp.roomdb.RoutineDAO
 import com.dilarasagirli.routineapp.roomdb.Routinedb
@@ -29,7 +25,6 @@ class EditRoutine : Fragment() {
     private var _binding: FragmentEditRoutineBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var routinesList : ArrayList<Routine>
     private lateinit var routineDAO: RoutineDAO
     private val mDisposable= CompositeDisposable()
 

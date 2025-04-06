@@ -1,16 +1,14 @@
 package com.dilarasagirli.routineapp.view
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
-import androidx.room.Room
-import com.dilarasagirli.routineapp.R
-import com.dilarasagirli.routineapp.classes.Routine
 import com.dilarasagirli.routineapp.databinding.FragmentAddRoutineBinding
 import com.dilarasagirli.routineapp.roomdb.RoutineDAO
 import com.dilarasagirli.routineapp.roomdb.Routinedb
@@ -37,7 +35,11 @@ class AddRoutineFragment : Fragment() {
     ): View? {
         _binding = FragmentAddRoutineBinding.inflate(inflater, container, false)
         val view = binding.root
+        return view
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.routineNameEditT.addTextChangedListener {
             val isValid = it.toString().trim().isNotEmpty()
             binding.savebtn.isEnabled = isValid
@@ -53,7 +55,9 @@ class AddRoutineFragment : Fragment() {
                     .subscribe(this::handleResponse)
             )
         }
-        return view
+        binding.routineNameEditT.requestFocus()
+        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.routineNameEditT, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun handleResponse(routineId:Long){

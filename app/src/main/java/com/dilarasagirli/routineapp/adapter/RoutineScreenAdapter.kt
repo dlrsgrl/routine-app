@@ -3,7 +3,6 @@ package com.dilarasagirli.routineapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dilarasagirli.routineapp.classes.Tasks
 import com.dilarasagirli.routineapp.databinding.RecyclerRowBinding
 
 class RoutineScreenAdapter (val tasklist:List<com.dilarasagirli.routineapp.model.Tasks>): RecyclerView.Adapter<RoutineScreenAdapter.RoutineScreenViewHolder>() {
