@@ -42,6 +42,11 @@ class EditRoutine : Fragment() {
         val view = binding.root
         binding.editRoutinerv.layoutManager = LinearLayoutManager(this.context)
 
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         arguments?.let{
             val id=EditRoutineArgs.fromBundle(it).routineId
             mDisposable.add(
@@ -60,14 +65,6 @@ class EditRoutine : Fragment() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe()
 
-//                updated?.forEachIndexed { index, task ->
-//                    mDisposable.add(
-//                        routineDAO.updateTaskOrder(index,id,task.taskId)
-//                            .subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe()
-//                    )
-//                }
                 val action = EditRoutineDirections.actionEditRoutineToRoutineScreenF(routineId = id)
                 val navOptions = navOptions {
                     popUpTo(R.id.routineScreenF) { inclusive = true }
@@ -82,13 +79,6 @@ class EditRoutine : Fragment() {
 
 
         }
-
-        return view
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
     }
 
