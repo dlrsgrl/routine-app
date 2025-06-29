@@ -61,7 +61,7 @@ class AddRoutineFragment : Fragment() {
     }
 
     private fun handleResponse(routineId:Long){
-        val action = AddRoutineFragmentDirections.actionAddRoutineFragmentToEditRoutine(routineId = routineId.toInt())
+        val action = AddRoutineFragmentDirections.actionAddRoutineFragmentToRoutineScreen(routineId = routineId.toInt())
         findNavController().navigate(action)
     }
     override fun onDestroyView() {

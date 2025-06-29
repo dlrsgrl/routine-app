@@ -46,7 +46,6 @@ abstract class Routinedb : RoomDatabase(){
         //changing the column name without underscores
         private val MIGRATION_8_9 = object :Migration(8,9) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                //closing the foreign keys in order to not interfere with the referencing table
                 db.execSQL("PRAGMA foreign_keys=off;")
 
                 db.execSQL("""CREATE TABLE new_tasks (

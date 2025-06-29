@@ -23,6 +23,9 @@ interface RoutineDAO {
     @Query("SELECT * FROM routine WHERE name LIKE :first LIMIT 1")
     fun getRoutineByName(first: String): Flowable<Routine>
 
+    @Query("SELECT name FROM routine WHERE routineId=:routineId ")
+    fun getRoutineNameById(routineId: Int):Single<String>
+
     @Query("SELECT * FROM tasks WHERE routineId=:routineId ORDER BY taskOrder ASC")
     fun getAllTask(routineId:Int): Flowable<List<Tasks>>
 
@@ -41,12 +44,18 @@ interface RoutineDAO {
     @Delete
     fun deleteTask(tasks: Tasks):Completable
 
-    @Query ("DELETE FROM routine")
-    fun deleteRoutines():Completable
+    @Query ("DELETE FROM routine where routineId=:routineId")
+    fun deleteRoutines(routineId: Int):Completable
 
     @Query ("DELETE FROM tasks")
     fun deleteTasks():Completable
 
     @Query ("UPDATE tasks SET taskOrder=:order WHERE routineId=:routineId AND taskId=:taskId")
     fun updateTaskOrder(order:Int,routineId: Int,taskId:Int): Completable
+
+    @Query ("UPDATE routine SET name=:name WHERE routineId=:routineId")
+    fun editRoutineName(name:String, routineId: Int): Completable
+
+    @Update
+    fun editRoutine(routine: Routine): Completable
 }

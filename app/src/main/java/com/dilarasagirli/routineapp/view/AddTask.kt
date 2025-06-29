@@ -72,7 +72,6 @@ class AddTask : Fragment() {
                 }
             }
             binding.addbtn1.setOnClickListener {
-                //Checking the last added task's order number
                 mDisposable.add(
                     routineDAO.getTaskOrder(routineId)
                         .defaultIfEmpty(-1)

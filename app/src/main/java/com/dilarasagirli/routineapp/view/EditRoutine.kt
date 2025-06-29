@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dilarasagirli.routineapp.R
 import com.dilarasagirli.routineapp.adapter.EditRoutineAdapter
 import com.dilarasagirli.routineapp.databinding.FragmentEditRoutineBinding
 import com.dilarasagirli.routineapp.model.Tasks
@@ -32,6 +30,7 @@ class EditRoutine : Fragment() {
         super.onCreate(savedInstanceState)
         val db = Routinedb.getDatabase(requireContext())
         routineDAO=db.routineDao()
+
     }
 
     override fun onCreateView(
@@ -50,6 +49,15 @@ class EditRoutine : Fragment() {
         arguments?.let{
             val id=EditRoutineArgs.fromBundle(it).routineId
             mDisposable.add(
+                routineDAO.getRoutineNameById(id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { name ->
+                        binding.textView2.text=name
+                    }
+            )
+
+            mDisposable.add(
                 routineDAO.getAllTask(id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -65,11 +73,7 @@ class EditRoutine : Fragment() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe()
 
-                val action = EditRoutineDirections.actionEditRoutineToRoutineScreenF(routineId = id)
-                val navOptions = navOptions {
-                    popUpTo(R.id.routineScreenF) { inclusive = true }
-                }
-                findNavController().navigate(action,navOptions)
+                findNavController().popBackStack()
 
             }
             binding.addtaskbtn.setOnClickListener {
@@ -77,9 +81,7 @@ class EditRoutine : Fragment() {
                 findNavController().navigate(action)
             }
 
-
         }
-
     }
 
     override fun onDestroyView() {
@@ -106,7 +108,6 @@ class EditRoutine : Fragment() {
                     return true
                 }
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
                 }
             }
         )

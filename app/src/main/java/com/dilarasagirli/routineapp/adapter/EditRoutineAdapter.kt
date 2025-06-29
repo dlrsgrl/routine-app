@@ -7,7 +7,7 @@ import com.dilarasagirli.routineapp.databinding.RecyclerRowBinding
 import com.dilarasagirli.routineapp.model.Tasks
 import java.util.Collections
 
-class EditRoutineAdapter (val tasklist: MutableList<Tasks>,private val itemClickListener: ((Tasks) -> Unit)? = null ): RecyclerView.Adapter<EditRoutineAdapter.EditRoutineVh>(){
+class EditRoutineAdapter(val tasklist: MutableList<Tasks>): RecyclerView.Adapter<EditRoutineAdapter.EditRoutineVh>(){
 
     class EditRoutineVh (val binding: RecyclerRowBinding):RecyclerView.ViewHolder(binding.root){
     }

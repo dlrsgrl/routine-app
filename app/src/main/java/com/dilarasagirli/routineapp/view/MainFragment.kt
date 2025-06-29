@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dilarasagirli.routineapp.R
 import com.dilarasagirli.routineapp.adapter.Routineadapter
 import com.dilarasagirli.routineapp.databinding.FragmentMainBinding
+import com.dilarasagirli.routineapp.model.Routine
 import com.dilarasagirli.routineapp.roomdb.RoutineDAO
 import com.dilarasagirli.routineapp.roomdb.Routinedb
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -48,7 +51,6 @@ class MainFragment : Fragment() {
         binding.addbtn2.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addRoutineFragment)
         }
-
     }
 
     private fun getAll() {
@@ -60,9 +62,45 @@ class MainFragment : Fragment() {
         )
     }
 
-    private fun handleResponse(routine: List<com.dilarasagirli.routineapp.model.Routine>) {
-        val adapter = Routineadapter(routine)
+    private fun handleResponse(routines: List<com.dilarasagirli.routineapp.model.Routine>) {
+        val adapter = Routineadapter(routines, onEdit ={routine-> showEditDialog(routine)}, onDelete = {routine -> deleteRoutine(routine)} )
         binding.routinrv.adapter = adapter
+    }
+
+    private fun deleteRoutine(routine: Routine) {
+        mDisposable.add(
+            routineDAO.deleteRoutine(routine)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        )
+    }
+
+    private fun updateRoutine(routine: Routine) {
+        mDisposable.add(
+            routineDAO.editRoutine(routine)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        )
+    }
+
+    private fun showEditDialog(routine: Routine){
+        val editText=EditText(requireContext())
+        editText.setText(routine.name)
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Edit routine name")
+            .setView(editText)
+            .setPositiveButton("Save") {dialog,which ->
+                val newName=editText.text.toString()
+                if(newName.isNotBlank()) {
+                    val updatedRoutine = routine.copy(name = newName)
+                    updateRoutine(updatedRoutine)
+                }
+            }
+            .setNegativeButton("Cancel",null)
+            .show()
     }
 
     override fun onDestroy() {

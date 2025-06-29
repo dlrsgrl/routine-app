@@ -11,10 +11,10 @@
         android:label="fragment_add_routine"
         tools:layout="@layout/fragment_add_routine" >
         <action
-            android:id="@+id/action_addRoutineFragment_to_editRoutine"
-            app:destination="@id/editRoutine"
+            android:id="@+id/action_addRoutineFragment_to_RoutineScreen"
+            app:destination="@id/routineScreenF"
             app:popUpTo="@id/addRoutineFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -41,7 +41,8 @@
             app:destination="@id/addTask" />
         <action
             android:id="@+id/action_routineScreenF_to_editRoutine"
-            app:destination="@id/editRoutine" />
+            app:destination="@id/editRoutine"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/editRoutine"
